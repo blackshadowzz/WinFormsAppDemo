@@ -44,6 +44,8 @@
             checkBoxIsActive = new CheckBox();
             numericUpDownPrice = new NumericUpDown();
             numericUpDownQty = new NumericUpDown();
+            txtImagePath = new TextBox();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxProduct).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownPrice).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownQty).BeginInit();
@@ -56,6 +58,7 @@
             pictureBoxProduct.Location = new Point(31, 63);
             pictureBoxProduct.Name = "pictureBoxProduct";
             pictureBoxProduct.Size = new Size(194, 194);
+            pictureBoxProduct.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxProduct.TabIndex = 0;
             pictureBoxProduct.TabStop = false;
             // 
@@ -148,7 +151,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(774, 324);
+            btnSave.Location = new Point(774, 379);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(106, 32);
             btnSave.TabIndex = 13;
@@ -158,7 +161,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(660, 324);
+            btnCancel.Location = new Point(660, 379);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(105, 32);
             btnCancel.TabIndex = 14;
@@ -192,11 +195,29 @@
             numericUpDownQty.Size = new Size(202, 29);
             numericUpDownQty.TabIndex = 17;
             // 
+            // txtImagePath
+            // 
+            txtImagePath.Location = new Point(383, 318);
+            txtImagePath.Name = "txtImagePath";
+            txtImagePath.Size = new Size(497, 29);
+            txtImagePath.TabIndex = 19;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(287, 321);
+            label5.Name = "label5";
+            label5.Size = new Size(90, 21);
+            label5.TabIndex = 18;
+            label5.Text = "Image Path:";
+            // 
             // ProductCreateForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(912, 378);
+            ClientSize = new Size(912, 423);
+            Controls.Add(txtImagePath);
+            Controls.Add(label5);
             Controls.Add(numericUpDownQty);
             Controls.Add(numericUpDownPrice);
             Controls.Add(checkBoxIsActive);
@@ -243,5 +264,7 @@
         private CheckBox checkBoxIsActive;
         private NumericUpDown numericUpDownPrice;
         private NumericUpDown numericUpDownQty;
+        private TextBox txtImagePath;
+        private Label label5;
     }
 }

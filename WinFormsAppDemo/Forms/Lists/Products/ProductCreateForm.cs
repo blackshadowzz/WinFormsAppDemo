@@ -13,13 +13,18 @@ namespace WinFormsAppDemo.Forms.Lists.Products
             _productService = new ProductService();
             _categoryService = new CategoryService();
         }
-
-        private void ProductCreateForm_Load(object sender, EventArgs e)
+        string? imageFilePath = null;
+        private void GetCategories()
         {
             comboBoxCategory.Items.Clear();
             comboBoxCategory.DataSource = _categoryService.GetCategories();
             comboBoxCategory.ValueMember = "Id";
             comboBoxCategory.DisplayMember = "CategoryName";
+        }
+
+        private void ProductCreateForm_Load(object sender, EventArgs e)
+        {
+            GetCategories();
         }
         void ClearData()
         {
@@ -38,6 +43,7 @@ namespace WinFormsAppDemo.Forms.Lists.Products
             product.Price = numericUpDownPrice.Value;
             product.StockQty = (int)numericUpDownQty.Value;
             product.Description = txtDescription.Text;
+            product.ImageUrl = txtImagePath.Text;
             product.IsActive = checkBoxIsActive.Checked;
             product.CreatedDate = DateTime.Now;
             product.ModifiedDate = DateTime.Now;
@@ -53,6 +59,7 @@ namespace WinFormsAppDemo.Forms.Lists.Products
                 if (rowId > 0)
                 {
                     MessageBox.Show("Product created succeed!");
+                    ClearData();
                     this.DialogResult = DialogResult.OK;
                 }
             }
@@ -70,7 +77,54 @@ namespace WinFormsAppDemo.Forms.Lists.Products
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Product Image";
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
 
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+
+                    string sourceFilePath = openFileDialog.FileName;
+                    string fileName = Path.GetFileName(sourceFilePath);
+
+                    string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+                    string imagesFolderPath = Path.Combine(appDirectory, "Images");
+
+                    if (!Directory.Exists(imagesFolderPath))
+                    {
+                        Directory.CreateDirectory(imagesFolderPath);
+                    }
+                    string destinationFilePath = Path.Combine(imagesFolderPath, fileName);
+
+                    try
+                    {
+                        if (pictureBoxProduct.Image != null)
+                        {
+                            pictureBoxProduct.Image.Dispose(); // Dispose of the previous image to free resources
+                            pictureBoxProduct.Image = null; // Clear the PictureBox
+                        }
+
+                        // Load the image into a Bitmap object first to release the file handle immediately
+                        using (Image originalImage = Image.FromFile(sourceFilePath))
+                        {
+                            // Save the image to the destination path
+                            // Using Save() instead of File.Copy() can sometimes be more robust for images
+                            // and handles overwriting implicitly if the file already exists.
+                            originalImage.Save(destinationFilePath, originalImage.RawFormat);
+                        }
+
+                        pictureBoxProduct.Image = Image.FromFile(destinationFilePath);
+                        txtImagePath.Text = destinationFilePath;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error processing image: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+            }
         }
     }
 }

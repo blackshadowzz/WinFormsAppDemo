@@ -33,20 +33,21 @@
             label1 = new Label();
             toolStrip1 = new ToolStrip();
             toolStripBtnAdd = new ToolStripButton();
+            toolStripButtonDetails = new ToolStripButton();
             txtSearch = new TextBox();
             btnSearch = new Button();
             dataGridViewProducts = new DataGridView();
+            productBindingSource = new BindingSource(components);
             productIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             categoryIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             productNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             descriptionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             priceDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             stockQtyDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            imageUrlDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            imageUrlDataGridViewTextBoxColumn = new DataGridViewImageColumn();
             isActiveDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             createdDateDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             modifiedDateDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            productBindingSource = new BindingSource(components);
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProducts).BeginInit();
             ((System.ComponentModel.ISupportInitialize)productBindingSource).BeginInit();
@@ -63,7 +64,7 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripBtnAdd });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripBtnAdd, toolStripButtonDetails });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1050, 25);
@@ -78,6 +79,15 @@
             toolStripBtnAdd.Size = new Size(94, 22);
             toolStripBtnAdd.Text = "Add Product";
             toolStripBtnAdd.Click += toolStripBtnAdd_Click;
+            // 
+            // toolStripButtonDetails
+            // 
+            toolStripButtonDetails.Image = (Image)resources.GetObject("toolStripButtonDetails.Image");
+            toolStripButtonDetails.ImageTransparentColor = Color.Magenta;
+            toolStripButtonDetails.Name = "toolStripButtonDetails";
+            toolStripButtonDetails.Size = new Size(107, 22);
+            toolStripButtonDetails.Text = "Details Product";
+            toolStripButtonDetails.Click += toolStripButtonDetails_Click;
             // 
             // txtSearch
             // 
@@ -115,6 +125,11 @@
             dataGridViewProducts.Size = new Size(1026, 425);
             dataGridViewProducts.TabIndex = 4;
             dataGridViewProducts.CellClick += dataGridViewProducts_CellClick;
+            dataGridViewProducts.CellFormatting += dataGridViewProducts_CellFormatting;
+            // 
+            // productBindingSource
+            // 
+            productBindingSource.DataSource = typeof(Models.Product);
             // 
             // productIdDataGridViewTextBoxColumn
             // 
@@ -165,6 +180,9 @@
             imageUrlDataGridViewTextBoxColumn.HeaderText = "ImageUrl";
             imageUrlDataGridViewTextBoxColumn.Name = "imageUrlDataGridViewTextBoxColumn";
             imageUrlDataGridViewTextBoxColumn.ReadOnly = true;
+            imageUrlDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.True;
+            imageUrlDataGridViewTextBoxColumn.SortMode = DataGridViewColumnSortMode.Automatic;
+            imageUrlDataGridViewTextBoxColumn.Visible = false;
             // 
             // isActiveDataGridViewCheckBoxColumn
             // 
@@ -187,10 +205,6 @@
             modifiedDateDataGridViewTextBoxColumn.Name = "modifiedDateDataGridViewTextBoxColumn";
             modifiedDateDataGridViewTextBoxColumn.ReadOnly = true;
             modifiedDateDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // productBindingSource
-            // 
-            productBindingSource.DataSource = typeof(Models.Product);
             // 
             // ProductListForm
             // 
@@ -223,16 +237,17 @@
         private TextBox txtSearch;
         private Button btnSearch;
         private DataGridView dataGridViewProducts;
+        private BindingSource productBindingSource;
+        private ToolStripButton toolStripButtonDetails;
         private DataGridViewTextBoxColumn productIdDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn categoryIdDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn productNameDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn stockQtyDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn imageUrlDataGridViewTextBoxColumn;
+        private DataGridViewImageColumn imageUrlDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn isActiveDataGridViewCheckBoxColumn;
         private DataGridViewTextBoxColumn createdDateDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn modifiedDateDataGridViewTextBoxColumn;
-        private BindingSource productBindingSource;
     }
 }

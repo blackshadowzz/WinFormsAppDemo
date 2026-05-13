@@ -85,7 +85,7 @@ namespace WinFormsAppDemo.Services
                             SELECT SCOPE_IDENTITY();";
             using (SqlCommand cmd = new SqlCommand(sql, conn))
             {
-                product.ImageUrl = GetImagePath(product.ImageUrl);
+                product.ImageUrl = GetImagePath(product.ImageUrl!);
                 cmd.Parameters.AddWithValue("@CategoryId", product.CategoryId);
                 cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
                 cmd.Parameters.AddWithValue("@Description", (object?)product.Description ?? DBNull.Value);
@@ -104,24 +104,29 @@ namespace WinFormsAppDemo.Services
         }
         public string GetImagePath(string path)
         {
-            // Assuming the images are stored in a folder named "Images" in the application directory
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string imagePath = Path.Combine(appDirectory, "Images", path);
-            //check Images folder exists
-            string imagesFolderPath = Path.Combine(appDirectory, "Images");
-            if (!Directory.Exists(imagesFolderPath))
-            {
-                Directory.CreateDirectory(Path.Combine(appDirectory, "Images"));
-            }
-            // Check if the file exists
             if (File.Exists(imagePath))
             {
                 return imagePath;
             }
             else
             {
-                // Return a default image path or handle the missing file case as needed
                 return Path.Combine(appDirectory, "Images", "default.png");
+            }
+        }
+
+        // Implement UpdateProduct 
+
+        // Implement DeleteProduct
+        public bool DeleteProduct(int Id)
+        {
+            string sql = "DELETE FROM TLProducts WHERE ProductId=@Id";
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.AddWithValue("@Id", Id);
+                int rowsAffected = cmd.ExecuteNonQuery();
+                return rowsAffected > 0;
             }
         }
     }

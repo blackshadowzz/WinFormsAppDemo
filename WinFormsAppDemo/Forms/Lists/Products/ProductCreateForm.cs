@@ -84,20 +84,15 @@ namespace WinFormsAppDemo.Forms.Lists.Products
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-
                     string sourceFilePath = openFileDialog.FileName;
                     string fileName = Path.GetFileName(sourceFilePath);
-
                     string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
                     string imagesFolderPath = Path.Combine(appDirectory, "Images");
-
                     if (!Directory.Exists(imagesFolderPath))
                     {
                         Directory.CreateDirectory(imagesFolderPath);
                     }
                     string destinationFilePath = Path.Combine(imagesFolderPath, fileName);
-
                     try
                     {
                         if (pictureBoxProduct.Image != null)
@@ -105,13 +100,8 @@ namespace WinFormsAppDemo.Forms.Lists.Products
                             pictureBoxProduct.Image.Dispose(); // Dispose of the previous image to free resources
                             pictureBoxProduct.Image = null; // Clear the PictureBox
                         }
-
-                        // Load the image into a Bitmap object first to release the file handle immediately
                         using (Image originalImage = Image.FromFile(sourceFilePath))
                         {
-                            // Save the image to the destination path
-                            // Using Save() instead of File.Copy() can sometimes be more robust for images
-                            // and handles overwriting implicitly if the file already exists.
                             originalImage.Save(destinationFilePath, originalImage.RawFormat);
                         }
 

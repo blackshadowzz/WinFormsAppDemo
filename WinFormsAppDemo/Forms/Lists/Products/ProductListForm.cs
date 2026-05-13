@@ -97,5 +97,29 @@ namespace WinFormsAppDemo.Forms.Lists.Products
                 }
             }
         }
+
+        private void toolStripButtonDelete_Click(object sender, EventArgs e)
+        {
+            if (ProductId == 0)
+            {
+                MessageBox.Show("Please select a product to delete.");
+                return;
+
+            }
+            var confirmResult = MessageBox.Show("Are you sure to delete this product?", "Confirm Delete", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                bool isDeleted = _productService.DeleteProduct(ProductId);
+                if (isDeleted)
+                {
+                    MessageBox.Show("Product deleted successfully.");
+                    GetProducts();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to delete the product.");
+                }
+            }
+        }
     }
 }

@@ -35,7 +35,6 @@ namespace WinFormsAppDemo.Forms.Lists.Categories
                 }
                 else
                     MessageBox.Show("Creating failed");
-
             }
             catch (Exception ex)
             {

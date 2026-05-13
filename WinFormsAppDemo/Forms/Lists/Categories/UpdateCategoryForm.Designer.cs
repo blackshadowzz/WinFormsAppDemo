@@ -1,6 +1,6 @@
 ﻿namespace WinFormsAppDemo.Forms.Lists.Categories
 {
-    partial class CreateCategoryForm
+    partial class UpdateCategoryForm
     {
         /// <summary>
         /// Required designer variable.
@@ -115,9 +115,9 @@
             Controls.Add(label1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
-            Name = "CreateCategoryForm";
-            Text = "New Category";
-            Load += CreateCategoryForm_Load;
+            Name = "UpdatCategoryForm";
+            Text = "Update Category";
+            Load += UpdateCategoryForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
